@@ -14,10 +14,6 @@ wysihtml5.browser = (function() {
     return +((/ipad|iphone|ipod/.test(userAgent) && userAgent.match(/ os (\d+).+? like mac os x/)) || [undefined, 0])[1];
   }
 
-  function androidVersion(userAgent) {
-    return +(userAgent.match(/android (\d+)/) || [undefined, 0])[1];
-  }
-
   function isIE(version, equation) {
     var rv = -1,
         re;
@@ -62,7 +58,7 @@ wysihtml5.browser = (function() {
           // document selector apis are only supported by IE 8+, Safari 4+, Chrome and Firefox 3.5+
           hasQuerySelectorSupport     = document.querySelector && document.querySelectorAll,
           // contentEditable is unusable in mobile browsers (tested iOS 4.2.2, Android 2.2, Opera Mobile, WebOS 3.05)
-          isIncompatibleMobileBrowser = (this.isIos() && iosVersion(userAgent) < 5) || (this.isAndroid() && androidVersion(userAgent) < 4) || userAgent.indexOf("opera mobi") !== -1 || userAgent.indexOf("hpwos/") !== -1;
+          isIncompatibleMobileBrowser = (this.isIos() && iosVersion(userAgent) < 5) || userAgent.indexOf("opera mobi") !== -1 || userAgent.indexOf("hpwos/") !== -1;
       return hasContentEditableSupport
         && hasEditingApiSupport
         && hasQuerySelectorSupport
@@ -75,10 +71,6 @@ wysihtml5.browser = (function() {
 
     isIos: function() {
       return (/ipad|iphone|ipod/i).test(this.USER_AGENT);
-    },
-
-    isAndroid: function() {
-      return this.USER_AGENT.indexOf("Android") !== -1;
     },
 
     /**
